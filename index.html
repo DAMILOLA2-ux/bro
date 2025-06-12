@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width" initial-scale="1.0" />
+    
+    <meta name="description" content="form">
+    <title>Codebloom project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="successMessage" class="success-message" style="display: none;">
+  <strong>✔ Message Sent!</strong>
+  <p>Thanks for completing the form. We'll be in touch soon!</p>
+</div>
+      <div class="form-container">
+          <h1>Contact us</h1>
+      <form class="contact-form" action="mailto: aminatdamilola21@gmail.com" method="post">
+          <div class="form-row">
+              <div class="form-group">
+        <label for="name">First Name *</label>
+        <input type="text" name="firstname" id="name">
+        <small class="error-message"></small>
+          </div>
+          
+          
+          <div class="form-group">
+        <label for="name">last Name *</label>
+        <input type="text" name="lastname" id="name">
+        <small class="error-message"></small>
+          </div>
+          
+          </div>
+          
+          <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" name="email" id="email">
+        <small class="error-message"></small>
+          </div>
+          
+          
+          <div class="form-group">
+              <label>Query type *</label>
+              <div class="form-row">
+                  <label class="option-box">
+                 <input type="radio" name="query type" id="radio" value="General enquiry">General Enquiry 
+             </label>
+             <label class="option-box">
+                <input type="radio" id="radio" name="query type" value="support request" >Support Request 
+            </label>
+              </div>
+         <small class="error-message"></small>
+           </div>
+           
+           <div class="form-group">
+               <label for="message" class="message">Message *</label>
+              <textarea rows="5" cols="10" id="textarea">
+               </textarea>
+         <small class="error-message"></small>
+           </div>
+           
+           <div class="form-group">
+               <label class="check-box"><input type="checkbox" id="check">I hereby consent to being contacted by the team *</label>
+         <small class="error-message"></small>
+           </div>
+           
+           <button type="submit">Submit</button>
+      </form>
+      
+      
+    
+      </div>
+      
+      
+      
+      
+      <!-- js script -->
+ <script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".contact-form");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        let isValid = true;
+        const errorMessages = document.querySelectorAll(".error-message");
+        errorMessages.forEach(msg => msg.textContent = ""); // Clear previous error messages
+
+        // Validate first name
+        const firstName = document.querySelector("input[name='firstname']");
+        if (!firstName.value.trim()) {
+            firstName.nextElementSibling.textContent = "First name is required.";
+            isValid = false;
+        }
+
+        // Validate last name
+        const lastName = document.querySelector("input[name='lastname']");
+        if (!lastName.value.trim()) {
+            lastName.nextElementSibling.textContent = "Last name is required.";
+            isValid = false;
+        }
+
+        // Validate email
+        const email = document.querySelector("input[name='email']");
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.value.trim()) {
+            email.nextElementSibling.textContent = "Email is required.";
+            isValid = false;
+        } else if (!emailPattern.test(email.value)) {
+            email.nextElementSibling.textContent = "Please enter a valid email.";
+            isValid = false;
+        }
+
+        // Validate query type selection
+        const queryType = document.querySelector("input[name='query type']:checked");
+        if (!queryType) {
+            document.querySelector("input[name='query type']").closest(".form-group").querySelector(".error-message").textContent = "Please select a query type.";
+            isValid = false;
+        }
+
+        // Validate message
+        const message = document.getElementById("textarea");
+        if (!message.value.trim()) {
+            message.nextElementSibling.textContent = "Message is required.";
+            isValid = false;
+        }
+
+        // Validate consent checkbox
+        const consentCheckbox = document.getElementById("check");
+        if (!consentCheckbox.checked) {
+            consentCheckbox.closest(".form-group").querySelector(".error-message").textContent = "You must consent to being contacted.";
+            isValid = false;
+        }
+
+        if (isValid) {
+            successMessage.style.display = "block";
+            form.reset(); // Reset form fields
+        }
+    });
+});
+ </script>
+</body>
+</html>
